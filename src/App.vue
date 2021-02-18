@@ -2,78 +2,49 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col">
-        <h1 class="text-center">COVID-19 DATA</h1>
+        <h1 class="text-left">Item name room</h1>
       </div>
     </div>
+
+
+    <div>
+      <button v-on:click="orderBUY">BUY</button>
+      <button v-on:click="orderSELL">SELL</button>
+      <button v-on:click="deleteOrder">deleteOrder</button>
+    </div>
+
     <div class="row mt-5" v-if="arrPositive.length > 0">
       <div class="col">
-        <h2 class="text-center">Positive</h2>
+        <h2 class="text-center">Price</h2>
         <line-chart
           :chartData="arrPositive"
           :options="chartOptions"
           :chartColors="positiveChartColors"
-          label="Positive"
+          label="Price"
         />
       </div>
     </div>
 
     <div class="row mt-5" v-if="arrHospitalized.length > 0">
       <div class="col">
-        <h2 class="text-center">Hospitalized</h2>
+        <h2 class="text-center">Number of sold items</h2>
         <line-chart
           :chartData="arrHospitalized"
           :options="chartOptions"
           :chartColors="hospitalizedChartColors"
-          label="Hospitalized"
+          label="Number of sold items"
         />
       </div>
     </div>
 
     <div class="row mt-5" v-if="arrInIcu.length > 0">
       <div class="col">
-        <h2 class="text-center">In ICU</h2>
+        <h2 class="text-center">market offers</h2>
         <line-chart
           :chartData="arrInIcu"
           :options="chartOptions"
           :chartColors="inIcuColors"
-          label="In ICU"
-        />
-      </div>
-    </div>
-
-    <div class="row mt-5" v-if="arrOnVentilators.length > 0">
-      <div class="col">
-        <h2 class="text-center">On Ventilators</h2>
-        <line-chart
-          :chartData="arrOnVentilators"
-          :options="chartOptions"
-          :chartColors="onVentilatorsColors"
-          label="On Ventilators"
-        />
-      </div>
-    </div>
-
-    <div class="row mt-5" v-if="arrRecovered.length > 0">
-      <div class="col">
-        <h2 class="text-center">Recovered</h2>
-        <line-chart
-          :chartData="arrRecovered"
-          :options="chartOptions"
-          :chartColors="recoveredColors"
-          label="Recovered"
-        />
-      </div>
-    </div>
-
-    <div class="row mt-5 mb-5">
-      <div class="col">
-        <h2 class="text-center">Deaths</h2>
-        <line-chart
-          v-if="arrDeaths.length > 0"
-          :chartData="arrDeaths"
-          :options="chartOptions"
-          :chartColors="deathColors"
-          label="Deaths"
+          label="market offers"
         />
       </div>
     </div>
@@ -81,17 +52,24 @@
 </template>
 
 <script>
+
+
 import axios from "axios";
 import moment from "moment";
 
+
 import LineChart from "./components/LineChart";
 
+
+let currentId = 0;
 export default {
   components: {
-    LineChart
+    LineChart,
   },
   data() {
     return {
+
+
       arrPositive: [],
       positiveChartColors: {
         borderColor: "#077187",
@@ -140,8 +118,63 @@ export default {
       }
     };
   },
+
+  methods: {
+
+   async orderBUY() {
+     //alert("created!")
+     await axios.post('http://localhost:8080/api/orders',
+         {
+           orderId: currentId,
+           tradingItemId: 6,
+           orderType: "BUY",
+           orderPrice: 1000,
+           //orderDate: "2021-02-16T10:15:20.443+00:00",
+           orderDate: new Date(),
+           userId: 1
+         })
+     currentId++;
+   },
+
+    async orderSELL() {
+      await axios.post('http://localhost:8080/api/orders',
+          {
+            orderId: currentId,
+            tradingItemId: 6,
+            orderType: "SELL",
+            orderPrice: 1000,
+            orderDate: new Date(),
+            userId: 1
+          })
+      currentId++;
+
+    },
+    async deleteOrder() {
+      currentId--;
+      await axios.delete(`http://localhost:8080/api/orders/${currentId}`,
+          {
+          //   data:{
+          //     orderId: currentId
+          //   },
+            headers:{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            }
+          })
+      currentId++;
+   }
+  },
+
   async created() {
-    const { data } = await axios.get("https://covidtracking.com/api/us/daily");
+    const { data } = await axios.get("https://covidtracking.com/api/us/daily",
+        {
+          headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
 
     data.forEach(d => {
       const date = moment(d.date, "YYYYMMDD").format("MM/DD");
