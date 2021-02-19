@@ -6,66 +6,68 @@
       </div>
     </div>
 
+    <div>Price</div>
+    <div>
+      <label>
+      <input type="number" name="Price" id="price" value="">
+    </label>
+    </div>
+
+    <div>Amount</div>
+    <div>
+    <label>
+      <input type="number" name="Amount" id="amount" value="">
+    </label>
+    </div>
+
     <div>
       <button v-on:click="orderBUY">BUY</button>
       <button v-on:click="orderSELL">SELL</button>
+    </div>
+
+    <div>Id</div>
+    <div>
+    <label>
+      <input type="number" name="Id" id="id" value="">
+    </label>
+    </div>
+
+    <div>
       <button v-on:click="deleteOrder">CANCEL ORDER</button>
-      <div class="btn">
-      <button v-on:click="showModal">Open Modal!</button>
-      <modal
-          v-show="isModalVisible"
-          @close="closeModal"
-      />
-        </div>
     </div>
   </div>
 </template>
 
 <script>
 
-
 import axios from "axios";
-
-import modal from "./components/Modal.vue"
-
 
 let currentId = 0;
 
 export default {
   name: 'app',
-  components: {
-    modal,
-
-  },
+  components: {},
 
   data() {
     return {
-      isModalVisible: false,
     };
   },
 
   methods: {
 
-    showModal() {
-      this.isModalVisible = true;
+    async orderBUY() {
+      await axios.post('http://localhost:8080/api/orders',
+          {
+            orderId: currentId,
+            tradingItemId: 6,
+            orderType: "BUY",
+            orderPrice: this.getPrice(),
+            orderDate: new Date(),
+            orderAmount: this.getAmount(),
+            userId: 1
+          })
+      currentId++;
     },
-    closeModal() {
-      this.isModalVisible = false;
-    },
-
-   async orderBUY() {
-     //alert("created!")
-     await axios.post('http://localhost:8080/api/orders',
-         {
-           orderId: currentId,
-           tradingItemId: 6,
-           orderType: "BUY",
-           orderPrice: 1000,
-           orderDate: new Date(),
-           userId: 1
-         })
-     currentId++;
-   },
 
     async orderSELL() {
       await axios.post('http://localhost:8080/api/orders',
@@ -73,27 +75,40 @@ export default {
             orderId: currentId,
             tradingItemId: 6,
             orderType: "SELL",
-            orderPrice: 1000,
+            orderPrice: this.getPrice(),
             orderDate: new Date(),
+            orderAmount: this.getAmount(),
             userId: 1
           })
       currentId++;
 
     },
     async deleteOrder() {
-      currentId--;
-      await axios.delete(`http://localhost:8080/api/orders/${currentId}`,
+      let id = this.getId();
+      await axios.delete(`http://localhost:8080/api/orders/${id}`,
           {
-            headers:{
+            headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*'
             }
           })
       currentId++;
-   }
-  }
+    },
+    
+    getPrice() {
+      return document.getElementById('price').value;
+    },
 
+    getAmount() {
+      return document.getElementById('amount').value;
+    },
+
+    getId() {
+      return document.getElementById('id').value;
+    },
+    
+  }
 };
 </script>
 
