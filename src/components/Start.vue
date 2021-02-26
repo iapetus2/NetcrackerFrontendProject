@@ -1,8 +1,9 @@
 <template>
   <div class="start">
     <h1>Welcome to NetTrade </h1>
-    <h3>This site contains more stuff :)</h3>
+    <h3>This site contains more stuff!</h3>
   </div>
+
 </template>
 
 <script>
