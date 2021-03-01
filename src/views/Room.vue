@@ -7,7 +7,7 @@
     </div>
     <div id="room">
 
-    <div class="card card-container">
+      <div class="card card-container">
         <router-view/>
         <div class="container">
           <div class="form-group">
@@ -19,12 +19,13 @@
             </label>
             <label>Amount
               <input type="number" id="amount" value="1" class="form-control"
-                  name="Amount"
+                     name="Amount"
               />
             </label>
 
             <div>
               <button class="button button-green" v-on:click="orderBUY">BUY</button>
+
               <button class="button button-red" v-on:click="orderSELL">SELL</button>
             </div>
 
@@ -48,7 +49,6 @@
 
 import axios from "axios";
 
-let currentId = 0;
 export default {
   name: 'room',
 
@@ -61,7 +61,6 @@ export default {
     async orderBUY() {
       await axios.post('http://localhost:8080/api/orders',
           {
-            orderId: currentId,
             tradingItemId: this.getItemId(),
             orderType: "BUY",
             orderPrice: this.getPrice(),
@@ -69,13 +68,11 @@ export default {
             orderAmount: this.getAmount(),
             userId: this.getUserId()
           })
-      currentId++;
     },
 
     async orderSELL() {
       await axios.post('http://localhost:8080/api/orders',
           {
-            orderId: currentId,
             tradingItemId: this.getItemId(),
             orderType: "SELL",
             orderPrice: this.getPrice(),
@@ -83,8 +80,6 @@ export default {
             orderAmount: this.getAmount(),
             userId: this.getUserId()
           })
-      currentId++;
-
     },
     async deleteOrder() {
       let id = this.getId();
@@ -108,7 +103,7 @@ export default {
     },
 
     getId() {
-      return document.getElementById('id').value - 1;
+      return document.getElementById('id').value;
     },
 
     getItemId() {
@@ -135,27 +130,29 @@ label {
 }
 
 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
-  padding: 8px 32px;
+  padding: 8px 44px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  border-radius: 5px;
 }
 
 .button-red {
-  background-color: #f44336
+  background-color: #f44336;
 }
 
 .button-green {
-  background-color: #4CAF50
+  background-color: #4CAF50;
 }
 
 .button-cancel {
   background-color: #f44336;
-  padding: 8px 96px;
+  white-space: normal;
+  padding: 8px 90px;
 }
 
 .card {
@@ -168,16 +165,6 @@ label {
   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
 }
 </style>
 
