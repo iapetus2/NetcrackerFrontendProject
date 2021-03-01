@@ -37,6 +37,7 @@
 
             <div>
               <button class="button button-cancel" v-on:click="deleteOrder">CANCEL ORDER</button>
+
             </div>
           </div>
         </div>
