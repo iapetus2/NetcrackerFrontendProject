@@ -7,6 +7,16 @@
     </div>
     <div id="room">
 
+      <div id="graph">
+        <DealPriceGraph />
+      </div>
+
+      <div id="sell">
+
+      </div>
+
+
+
       <div class="card card-container">
         <router-view/>
         <div class="container">
@@ -49,10 +59,13 @@
 <script>
 
 import axios from "axios";
+import DealPriceGraph from "../components/DealPriceGraph";
 
 export default {
   name: 'room',
-
+  components:{
+    DealPriceGraph
+  },
   data() {
     return {};
   },
@@ -163,9 +176,9 @@ label {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 </style>
 

@@ -5,9 +5,10 @@ import router from "@/router";
 import VueRouter from 'vue-router';
 import store from './store';
 import VeeValidate from 'vee-validate';
+import { connect } from "./util/websocket";
 
 Vue.config.productionTip = false;
-
+connect()
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
 
