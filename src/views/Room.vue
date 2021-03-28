@@ -7,15 +7,7 @@
     </div>
     <div id="room">
 
-      <div id="graph">
-        <DealPriceGraph />
-      </div>
-
-      <div id="sell">
-
-      </div>
-
-
+      <DealPriceGraph/>
 
       <div class="card card-container">
         <router-view/>
