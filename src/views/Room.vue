@@ -72,7 +72,9 @@ export default {
     async orderBUY() {
       await axios.post(`http://localhost:8080/api/orders`,
           {
-            tradingItemId: this.getItemId(),
+            tradingItem: {
+              tradingItemId: this.getItemId()
+            },
             orderType: "BUY",
             orderPrice: this.getPrice(),
             orderDate: new Date(),

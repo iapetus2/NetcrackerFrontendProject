@@ -3,7 +3,7 @@
 
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>{{ currentUser.username }}</strong> Profile
       </h3>
     </header>
     <img
@@ -13,19 +13,30 @@
         alt=""/>
     <p>
       <strong>Cash:</strong>
-      {{currentUser.cash}}
+      {{ currentUser.cash }}
     </p>
-    <div>
-      <button class="button button-green" v-on:click="increaseMoney">getMoney!</button>
-
+    <div class="card-cash card-container">
+      <router-view/>
+      <div class="container">
+        <div class="form-group">
+          <label>Increase Cash
+            <input type="number" id="cash" value="1000" class="form-control"
+                   name="Cash"
+            />
+          </label>
+          <div>
+            <button class="button button-green" v-on:click="increaseMoney">getMoney!</button>
+          </div>
+        </div>
+      </div>
     </div>
     <p>
       <strong>Email:</strong>
-      {{currentUser.email}}
+      {{ currentUser.email }}
     </p>
     <strong>Role:</strong>
 
-    <p>{{currentUser.role}}</p>
+    <p>{{ currentUser.role }}</p>
 
   </div>
 </template>
@@ -35,26 +46,40 @@ import axios from "axios";
 
 export default {
   name: 'Profile',
+  methods: {
+    async increaseMoney() {
+      await axios.put(`http://localhost:8080/api/user/${this.currentUser.id}/cash`,
+          {
+            user: {
+              cash: this.updateCash()
+            }
+          })
+    },
+    updateCash() {
+      alert(document.getElementById('cash').value)
+      return document.getElementById('cash').value;
+    }
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     }
   },
+
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
   },
-  async increaseMoney() {
-    await axios.put('http://localhost:8080/api/user',
-        {
-         cash: ""
-        })
-  },
 };
 </script>
 
 <style>
+.card-container.card-cash {
+  max-width: 350px !important;
+  padding: 40px 40px;
+}
+
 .profile-img-card-profile {
   width: 96px;
   height: 96px;
