@@ -50,28 +50,43 @@ export default {
     async increaseMoney() {
       await axios.put(`http://localhost:8080/api/user/${this.currentUser.id}/cash`,
           {
-            user: {
-              cash: this.updateCash()
+            userId: 1,
+            userName: "pop",
+            cash: this.updateCash(),
+            items: {
+              10: "8",
+              20: "8"
             }
-          })
+          }).then(
+          response => {
+            if (response.status === 200) {
+              let user = localStorage.getItem('user')
+              this.user.cash = this.user.cash + this.updateCash()
+              localStorage.setItem('user', JSON.stringify(user))
+            }
+          });
     },
+
     updateCash() {
-      alert(document.getElementById('cash').value)
+      //alert(document.getElementById('cash').value)
       return document.getElementById('cash').value;
-    }
+    },
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     }
-  },
+  }
+  ,
 
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-  },
-};
+  }
+  ,
+}
+;
 </script>
 
 <style>
