@@ -70,13 +70,13 @@ export default {
   methods: {
 
     async orderBUY() {
-      await axios.post('http://localhost:8080/api/orders',
+      await axios.post(`http://localhost:8080/api/orders`,
           {
             tradingItemId: this.getItemId(),
             orderType: "BUY",
             orderPrice: this.getPrice(),
             orderDate: new Date(),
-            orderAmount: this.getAmount(),
+            amount: this.getAmount(),
             user:
                 {
                   userId:
@@ -86,13 +86,14 @@ export default {
     },
 
     async orderSELL() {
+      alert(this.currentUser.id)
       await axios.post('http://localhost:8080/api/orders',
           {
             tradingItemId: this.getItemId(),
             orderType: "SELL",
             orderPrice: this.getPrice(),
             orderDate: new Date(),
-            orderAmount: this.getAmount(),
+            amount: this.getAmount(),
             user:
                 {
                   userId:
