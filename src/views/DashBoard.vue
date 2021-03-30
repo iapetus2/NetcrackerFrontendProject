@@ -57,7 +57,6 @@ export default {
 div.dashCard {
   margin-left: auto;
   margin-right: auto;
-  /*width: 8em;*/
   width: 200px;
   border: 1px solid blue;
   border-radius: 10px;
