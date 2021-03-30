@@ -55,7 +55,12 @@ import DealPriceGraph from "../components/DealPriceGraph";
 
 export default {
   name: 'room',
-  components:{
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
+  components: {
     DealPriceGraph
   },
   data() {
@@ -72,7 +77,11 @@ export default {
             orderPrice: this.getPrice(),
             orderDate: new Date(),
             orderAmount: this.getAmount(),
-            userId: this.getUserId()
+            user:
+                {
+                  userId:
+                  this.currentUser.id
+                }
           })
     },
 
@@ -84,7 +93,11 @@ export default {
             orderPrice: this.getPrice(),
             orderDate: new Date(),
             orderAmount: this.getAmount(),
-            userId: this.getUserId()
+            user:
+                {
+                  userId:
+                      this.currentUser.id
+                }
           })
     },
     async deleteOrder() {
@@ -115,11 +128,6 @@ export default {
     getItemId() {
       return 6;
     },
-
-    getUserId() {
-      return 1;
-    },
-
   }
 };
 </script>

@@ -15,6 +15,10 @@
       <strong>Cash:</strong>
       {{currentUser.cash}}
     </p>
+    <div>
+      <button class="button button-green" v-on:click="increaseMoney">getMoney!</button>
+
+    </div>
     <p>
       <strong>Email:</strong>
       {{currentUser.email}}
@@ -27,6 +31,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: 'Profile',
   computed: {
@@ -38,7 +44,13 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-  }
+  },
+  async increaseMoney() {
+    await axios.put('http://localhost:8080/api/user',
+        {
+         cash: ""
+        })
+  },
 };
 </script>
 
@@ -46,7 +58,7 @@ export default {
 .profile-img-card-profile {
   width: 96px;
   height: 96px;
-  margin: 0 auto 10px;
+  margin: 10px 10px;
   display: block;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
