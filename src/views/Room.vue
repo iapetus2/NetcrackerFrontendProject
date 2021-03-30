@@ -52,7 +52,9 @@
 
 import axios from "axios";
 import DealPriceGraph from "../components/DealPriceGraph";
+import {connect} from "../util/websocket";
 
+connect()
 export default {
   name: 'room',
   computed: {
@@ -72,18 +74,17 @@ export default {
     async orderBUY() {
       await axios.post(`http://localhost:8080/api/orders`,
           {
-            tradingItem: {
-              tradingItemId: this.getItemId()
-            },
             orderType: "BUY",
             orderPrice: this.getPrice(),
             orderDate: new Date(),
             amount: this.getAmount(),
-            user:
-                {
+            user: {
                   userId:
                   this.currentUser.id
-                }
+                },
+            tradingItem: {
+              itemId: this.getItemId()
+            }
           })
     },
 
@@ -96,11 +97,13 @@ export default {
             orderPrice: this.getPrice(),
             orderDate: new Date(),
             amount: this.getAmount(),
-            user:
-                {
+            user: {
                   userId:
                       this.currentUser.id
-                }
+                },
+            tradingItem: {
+              itemId : 10
+            }
           })
     },
     async deleteOrder() {
@@ -129,7 +132,7 @@ export default {
     },
 
     getItemId() {
-      return 6;
+      return 10;
     },
   }
 };
