@@ -91,7 +91,6 @@ export default {
     },
 
     async orderSELL() {
-      alert(this.currentUser.id)
       await axios.post('http://localhost:8080/api/orders',
           {
             tradingItemId: this.getItemId(),
