@@ -1,6 +1,6 @@
 <template>
   <div class="graph">
-    <apexChart ref="dealchart" width="684" height="300" type="area" :options="options" :series="series"></apexChart>
+    <apexChart ref="dealchart" width="600" height="300" type="area" :options="options" :series="series"></apexChart>
   </div>
 </template>
 
@@ -62,4 +62,11 @@ export default {
 }
 </script>
 <style scoped>
+.graph{
+  margin: auto 1px;
+  width: 100px;
+  height: auto;
+  position: absolute;
+  top: 80px;
+}
 </style>

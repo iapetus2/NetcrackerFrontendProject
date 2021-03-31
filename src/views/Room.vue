@@ -2,50 +2,52 @@
   <div class="col-md-12">
     <div class="row mt-5">
       <div class="col">
-        <h1 class="text-left">Oil room</h1>
+        <h1 class="text-left">Oil</h1>
       </div>
     </div>
     <div id="room">
+      <div class="graph">
+        <DealPriceGraph/>
+      </div>
 
-      <DealPriceGraph/>
+        <div class="card-orders card-container-orders">
+          <router-view/>
+          <div class="container">
+            <div class="form-group">
 
-      <div class="card card-container">
-        <router-view/>
-        <div class="container">
-          <div class="form-group">
+              <label>Price
+                <input type="number" id="price" value="1000" class="form-control"
+                       name="Price"
+                />
+              </label>
+              <label>Amount
+                <input type="number" id="amount" value="1" class="form-control"
+                       name="Amount"
+                />
+              </label>
 
-            <label>Price
-              <input type="number" id="price" value="1000" class="form-control"
-                     name="Price"
-              />
-            </label>
-            <label>Amount
-              <input type="number" id="amount" value="1" class="form-control"
-                     name="Amount"
-              />
-            </label>
+              <div>
+                <button class="button button-green" v-on:click="orderBUY">BUY</button>
 
-            <div>
-              <button class="button button-green" v-on:click="orderBUY">BUY</button>
+                <button class="button button-red" v-on:click="orderSELL">SELL</button>
+              </div>
 
-              <button class="button button-red" v-on:click="orderSELL">SELL</button>
-            </div>
+              <label>Id
+                <input type="number" id="id" value="1" class="form-control"
+                       name="Id"
+                />
+              </label>
 
-            <label>Id
-              <input type="number" id="id" value="1" class="form-control"
-                     name="Id"
-              />
-            </label>
+              <div>
+                <button class="button button-cancel" v-on:click="deleteOrder">CANCEL ORDER</button>
 
-            <div>
-              <button class="button button-cancel" v-on:click="deleteOrder">CANCEL ORDER</button>
-
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -99,7 +101,7 @@ export default {
             amount: this.getAmount(),
             user: {
                   userId:
-                      this.currentUser.id
+                  this.currentUser.id
                 },
             tradingItem: {
               itemId : 10
@@ -109,13 +111,7 @@ export default {
     async deleteOrder() {
       let id = this.getId();
       await axios.delete(`http://localhost:8080/api/orders/${id}`,
-          {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*'
-            }
-          })
+          {})
 
     },
 
@@ -144,9 +140,13 @@ label {
   margin-top: 10px;
 }
 
-.card-container.card {
+.card-container-orders {
   max-width: 350px !important;
   padding: 40px 40px;
+  position: absolute;
+  right: 50px;
+  top: 10px;
+
 }
 
 .button {
@@ -175,7 +175,7 @@ label {
   padding: 8px 90px;
 }
 
-.card {
+.card-orders {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
   margin: 50px auto 25px;
