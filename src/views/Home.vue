@@ -1,8 +1,18 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
+    <header class="jumbotron-cash">
       <h3>{{content}}</h3>
     </header>
+    <img
+        id="net-img"
+        src="image.png"
+        class="home-img-card"
+        alt=""/>
+    <img
+        id="home-img"
+        src="https://svgsilh.com/svg/1295953-009688.svg"
+        class="home-img-card"
+        alt=""/>
   </div>
 </template>
 
@@ -31,3 +41,19 @@ export default {
   }
 };
 </script>
+
+<style>
+.home-img-card {
+  width: 1000px;
+  height: 500px;
+  margin: 0 0;
+
+}
+.jumbotron-cash {
+  padding:2rem 1rem;
+  margin-bottom:2rem;
+  max-width: 350px;
+  background-color: darkgray;
+  border-radius:.3rem
+}
+</style>
