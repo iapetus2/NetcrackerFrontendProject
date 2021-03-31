@@ -27,14 +27,6 @@
     </div>
     <div class="dashCard">
       <div class="text-left">
-        <h3>Sto(n)cks</h3>
-        <div>
-          <button class="roomButton button-green" v-on:click="enterRoom">Enter room</button>
-        </div>
-      </div>
-    </div>
-    <div class="dashCard">
-      <div class="text-left">
         <h3>Bonds</h3>
         <div>
           <button class="roomButton button-green" v-on:click="enterRoom">Enter room</button>
