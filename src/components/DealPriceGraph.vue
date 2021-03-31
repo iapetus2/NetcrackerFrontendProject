@@ -12,23 +12,32 @@ export default {
   components: {
     apexChart: VueApexCharts,
   },
-  data: function() {
+  data: function () {
     return {
       options: {
+        data: [
+
+        ],
         chart: {
           id: 'dealPriceGraph',
-          type: 'area',
-          height: 350,
-          zoom: {
-            autoScaleYaxis: true
-          }
-        },
+          type:
+              'area',
+          height:
+              350,
+          zoom:
+              {
+                autoScaleYaxis: true
+              }
+        }
+        ,
         dataLabels: {
           enabled: false
-        },
+        }
+        ,
         markers: {
           size: 0,
-          style: 'hollow',
+          style:
+              'hollow',
         },
         xaxis: {
           type: 'datetime',
@@ -43,26 +52,38 @@ export default {
         },
         fill: {
           type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 100]
-          }
+          gradient:
+              {
+                shadeIntensity: 1,
+                opacityFrom:
+                    0.7,
+                opacityTo:
+                    0.9,
+                stops:
+                    [0, 100]
+              }
         }
       },
       series: [{
-        name:'price',
+        name: 'price',
         data: [
-          [Date.now(), 40],
+          [1616606000000, 30.95],
+          [1616616400000, 31.34],
+          [1616646600000, 31.18],
+          [1616666800000, 31.05],
+          [1616676800000, 31.00],
+          [1616778800000, 30.95],
+          [1616886800000, 31.24],
+          [1616997200000, 31.29],
         ]
       }]
     }
-  },
+  }
+  ,
 }
 </script>
 <style scoped>
-.graph{
+.graph {
   margin: auto 1px;
   width: 100px;
   height: auto;
