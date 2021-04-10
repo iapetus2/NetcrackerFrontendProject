@@ -56,15 +56,16 @@ export default {
             }
           }).then(
           response => {
+            console.log(response)
             if (response.status === 200) {
-              let cash = JSON.parse(localStorage.getItem('user')).cash
-              this.currentUser.cash = Number(cash) + Number(this.updateCash())
+              this.currentUser.cash = response.data
               let userTmp = JSON.parse((localStorage.getItem('user')))
-              userTmp.cash = Number(cash) + Number(this.updateCash())
+              userTmp.cash = response.data
               this.$forceUpdate()
               localStorage.removeItem('user')
               localStorage.setItem('user', JSON.stringify(userTmp))
               this.$forceUpdate()
+
             }
           });
     },

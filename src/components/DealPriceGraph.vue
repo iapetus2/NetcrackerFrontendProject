@@ -1,6 +1,11 @@
 <template>
   <div class="graph">
-    <apexChart ref="dealchart" width="600" height="300" type="area" :options="options" :series="series"></apexChart>
+    <apexChart ref="dealchart"
+               width="600" height="300"
+               type="area"
+               :options="options"
+               :series="series">
+    </apexChart>
   </div>
 </template>
 
@@ -15,9 +20,6 @@ export default {
   data: function () {
     return {
       options: {
-        data: [
-
-        ],
         chart: {
           id: 'dealPriceGraph',
           type:
@@ -67,14 +69,15 @@ export default {
       series: [{
         name: 'price',
         data: [
-          [1616606000000, 30.95],
-          [1616616400000, 31.34],
-          [1616646600000, 31.18],
-          [1616666800000, 31.05],
-          [1616676800000, 31.00],
-          [1616778800000, 30.95],
-          [1616886800000, 31.24],
-          [1616997200000, 31.29],
+          [Date.now() - 5000, 33.95],
+          [Date.now() - 4000, 35.34],
+          [Date.now() - 3000, 32.18],
+          [Date.now() - 2500, 37.05],
+          [Date.now() - 2000, 31.00],
+          [Date.now() - 1000, 35.95],
+          [Date.now() - 500, 34.24],
+          [Date.now() - 200, 35.29],
+          [Date.now(), 33]
         ]
       }]
     }

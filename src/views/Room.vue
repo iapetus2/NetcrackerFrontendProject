@@ -16,7 +16,7 @@
             <div class="form-group">
 
               <label>Price
-                <input type="number" id="price" value="1000" class="form-control"
+                <input type="number" id="price" value="35" class="form-control"
                        name="Price"
                 />
               </label>
