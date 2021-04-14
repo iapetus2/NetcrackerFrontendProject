@@ -54,7 +54,7 @@
 
 import axios from "axios";
 import DealPriceGraph from "../components/DealPriceGraph";
-import {connect} from "../util/websocket";
+import {connect} from "@/util/websocket";
 
 connect()
 export default {

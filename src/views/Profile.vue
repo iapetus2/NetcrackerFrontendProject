@@ -34,6 +34,10 @@
       <strong>Email:</strong>
       {{ currentUser.email }}
     </p>
+    <strong>Items:</strong>
+    <ul>
+      <li v-for="(items,index) in currentUser.items" :key="index">ItemId: {{index}} amount: {{items}}</li>
+    </ul>
   </div>
 </template>
 
@@ -58,7 +62,9 @@ export default {
           response => {
             console.log(response)
             if (response.status === 200) {
-              this.currentUser.cash = response.data
+              console.log(response.data.cash)
+              this.currentUser.cash = response.data.cash
+              this.currentUser.items = response.data.items
               let userTmp = JSON.parse((localStorage.getItem('user')))
               userTmp.cash = response.data
               this.$forceUpdate()
