@@ -36,7 +36,9 @@
     </p>
     <strong>Items:</strong>
     <ul>
-      <li v-for="(items,index) in currentUser.items" :key="index">ItemId: {{index}} amount: {{items}}</li>
+      <li v-for="(items,name) in currentUser.items" :key="name">
+        Item: {{ name }}, amount: {{ items }}
+      </li>
     </ul>
   </div>
 </template>
@@ -65,13 +67,14 @@ export default {
               console.log(response.data.cash)
               this.currentUser.cash = response.data.cash
               this.currentUser.items = response.data.items
+
               let userTmp = JSON.parse((localStorage.getItem('user')))
               userTmp.cash = response.data
+              userTmp.items = this.currentUser.items
               this.$forceUpdate()
               localStorage.removeItem('user')
               localStorage.setItem('user', JSON.stringify(userTmp))
               this.$forceUpdate()
-
             }
           });
     },
@@ -84,16 +87,14 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     }
-  }
-  ,
+  },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
   }
   ,
-}
-;
+};
 </script>
 
 <style>
@@ -142,12 +143,13 @@ export default {
   text-indent: -10px;
   text-align: left;
 }
+
 .jumbotron-cash {
-  padding:2rem 1rem;
-  margin-bottom:2rem;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
   max-width: 350px;
   background-color: darkgray;
-  border-radius:.3rem
+  border-radius: .3rem
 }
 
 </style>
